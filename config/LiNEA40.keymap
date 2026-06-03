@@ -57,7 +57,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -118,33 +118,15 @@
         };
     };
 
-    macros {
-        bt_Mac: bt_Mac {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&bt BT_SEL 0>, <&macro_wait_time 200>, <&to 0>;
-
-            label = "BT_MAC";
-        };
-
-        bt_Win: bt_Win {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&bt BT_SEL 1>, <&macro_wait_time 200>, <&to 2>;
-
-            label = "BT_WIN";
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
-        Mac_Base {
+        Base {
             bindings = <
-&kp Q      &kp W         &kp E                        &kp R   &kp T                                           &kp Y        &kp U  &lt 5 I               &kp O      &kp P
-&kp A      &kp S         &kp D                        &kp F   &kp G                                           &kp H        &kp J  &kp K                 &kp L      &kp LEFT_SHIFT
-&kp Z      &kp X         &kp C                        &kp V   &kp B                                           &kp N        &kp M  &kp COMMA             &kp DOT    &kp SLASH
-&kp LCTRL  &kp LEFT_ALT  &mt LEFT_COMMAND LANGUAGE_2  &trans  &lt 8 LANGUAGE_1  &lt 1 SPACE    &kp BACKSPACE  &lt 9 ENTER         &lt 10 RIGHT_BRACKET  &kp UNDER  &kp DELETE
+&kp Q             &kp W         &kp E         &kp R   &kp T                                           &kp Y      &kp U  &kp I                &kp O      &kp P
+&kp A             &kp S         &kp D         &kp F   &kp G                                           &kp H      &kp J  &kp K                &kp L      &kp ENTER
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V   &kp B                                           &kp N      &kp M  &kp COMMA            &kp DOT    &kp SLASH
+&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &trans  &lt 1 LANGUAGE_1  &lt 2 GRAVE    &kp BACKSPACE  &kp SPACE         &lt 6 RIGHT_BRACKET  &kp UNDER  &kp DELETE
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -152,23 +134,25 @@
 
         //1
 
-        Mac_Win {
+        number {
             bindings = <
-&trans  &kp LC(LS(TAB))  &kp LC(UP_ARROW)  &kp LC(TAB)    &kp LC(J)                            &kp RC(RA(D))      &kp RC(RA(E))  &trans   &kp LG(LS(NUMBER_4))  &kp LG(LS(N5))
-&trans  &kp LC(LEFT)     &kp LS(LG(T))     &kp LS(RIGHT)  &kp SPACE                            &kp RC(K)          &mkp MB1       &kp F11  &mkp MB2              &kp RC(RA(ENTER))
-&trans  &kp LG(LEFT)     &kp LC(DOWN)      &kp LG(RIGHT)  &kp LC(LG(SPACE))                    &kp RC(SEMICOLON)  &trans         &kp F19  &trans                &trans
-&trans  &trans           &trans            &trans         &trans             &trans    &trans  &trans                            &trans   &trans                &trans
+&trans  &trans    &kp UP_ARROW    &trans     &trans                    &kp PLUS   &kp N7        &kp N8        &kp N9        &kp ASTERISK
+&trans  &kp LEFT  &kp DOWN_ARROW  &kp RIGHT  &trans                    &kp MINUS  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp SLASH
+&trans  &trans    &trans          &trans     &trans                    &kp N0     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp EQUAL
+&trans  &trans    &trans          &trans     &trans  &trans    &trans  &trans                   &trans        &trans        &trans
             >;
+
+            sensor-bindings = <&inc_dec_kp 0 0>;
         };
 
         //2
 
         Win_Base {
             bindings = <
-&kp Q             &kp W         &kp E               &kp R   &kp T                                           &kp Y        &kp U  &kp I                 &kp O           &kp P
-&kp A             &kp S         &kp D               &kp F   &kp G                                           &kp H        &kp J  &kp K                 &kp L           &kp RIGHT_SHIFT
-&kp Z             &kp X         &kp C               &kp V   &kp B                                           &kp N        &kp M  &kp COMMA             &kp PERIOD      &kp SLASH
-&kp LEFT_COMMAND  &kp LEFT_ALT  &kp RC(LANGUAGE_2)  &trans  &lt 8 LANGUAGE_1  &lt 3 SPACE    &kp BACKSPACE  &lt 9 ENTER         &lt 10 RIGHT_BRACKET  &kp UNDERSCORE  &kp LS(DEL)
+&kp ESCAPE  &trans  &trans  &trans  &trans                    &trans        &kp SQT          &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans
+&kp TAB     &trans  &trans  &trans  &trans                    &kp COLON     &mkp MB1         &mkp MB2              &kp AMPERSAND          &kp MINUS
+&trans      &trans  &trans  &trans  &trans                    &kp QUESTION  &kp EXCLAMATION  &kp AT_SIGN           &kp HASH               &kp SLASH
+&trans      &trans  &trans  &trans  &trans  &trans    &trans  &trans                         &trans                &trans                 &trans
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
@@ -189,10 +173,10 @@
 
         Mouse {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MB1  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans            &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &trans  &trans  &trans
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -222,42 +206,6 @@
             >;
 
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
-        };
-
-        layer_7 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &trans  &trans  &trans
-            >;
-        };
-
-        SymNum {
-            bindings = <
-&kp LS(SEMI)   &kp LS(APOSTROPHE)  &trans        &trans            &kp KP_NUMLOCK                       &kp SLASH  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp PLUS
-&kp BACKSLASH  &trans              &trans        &kp LEFT_BRACKET  &kp RIGHT_BRACKET                    &kp ASTRK  &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp MINUS
-&kp N0         &kp N7              &kp NUMBER_2  &kp NUMBER_4      &kp EXCLAMATION                      &kp N0     &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PERIOD
-&mkp MB5       &trans              &trans        &trans            &trans             &trans    &trans  &trans                   &trans        &trans        &kp EQUAL
-            >;
-        };
-
-        Func {
-            bindings = <
-&kp HOME        &trans          &trans          &trans           &trans                        &bootloader  &trans    &trans        &trans     &kp PSCRN
-&kp LEFT_SHIFT  &trans          &msc SCRL_UP    &trans           &trans                        &trans       &mkp MB1  &kp UP_ARROW  &mkp MB2   &trans
-&trans          &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_RIGHT  &kp K_MUTE                    &trans       &kp LEFT  &kp DOWN      &kp RIGHT  &trans
-&kp END         &trans          &trans          &trans           &trans      &trans    &trans  &trans                 &trans        &trans     &trans
-            >;
-        };
-
-        Adjust {
-            bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans  &trans  &trans  &trans  &bt BT_CLR_ALL
-&trans        &trans        &trans        &trans        &trans                          &trans  &trans  &trans  &trans  &trans
-&trans        &trans        &trans        &trans        &trans                          &trans  &trans  &trans  &trans  &trans
-&trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans          &trans  &trans  &trans
-            >;
         };
     };
 };
